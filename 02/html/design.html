@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap Sample</title>
+    <!-- BootstrapのCSS読み込み -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- jQuery読み込み -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- BootstrapのJS読み込み -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
+    <script src="https://use.fontawesome.com/ae5cdfa3ca.js"></script>
+
+    <style>
+      .icon .glyphicon{
+        font-size: 50px;
+        margin-top: 15px;
+      }
+
+      .copyright {
+        padding: 20px 0;
+        font-size: 12px;
+        text-align: center;
+        color: #666;
+      }
+
+
+    </style>
+  </head>
+  <body>
+
+    <header>
+      <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#site-menu">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>              
+            </button>
+            <a class="navbar-brand" href="#">とってもあやしい会社</a>
+          </div>
+          <div class="collapse navbar-collapse" id="site-menu">
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="#">会社情報</a></li>
+              <li><a href="#">事業情報</a></li>
+              <li class="active"><a href="#">人生のお悩みに関する相談</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                  カウンセラーの募集
+                  <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="#">新卒採用</a></li>
+                  <li><a href="#">キャリア採用</a></li>
+                  <li><a href="#">スタッフ採用</a></li>                  
+                </ul>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+      </nav>
+    </header>
+    
+
+    <div class="container">
+      <div class="page-header">
+        <h1>人生のお悩みに関する相談</h1>
+      </div>
+
+      <div class="row">
+        <div class="icon col-sm-2 hidden-xs">
+          <!-- <i class="fa fa-phone-square" aria-hidden="true"></i> -->
+          <span class="glyphicon glyphicon-earphone"></span>
+        </div>
+        <div class="col-sm-10">
+          <h2>お電話による相談</h2>
+          <p>該当する内容の電話番号におかけください。</p>
+          <div>
+            <table class="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th>内容</th>
+                  <th>電話番号</th>
+                  <th>担当</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>セクシャルハラスメントに関する相談</td>
+                  <td>090-xxxx-xxxx</td>
+                  <td>セクハラ太郎</td>
+                </tr>
+                <tr>
+                  <td>モラルハラスメントに関する相談</td>
+                  <td>090-xxxx-xxxx</td>
+                  <td>モラル万次郎</td>
+                </tr>
+                <tr>
+                  <td>パワーハラスメントに関する相談</td>
+                  <td>090-xxxx-xxxx</td>
+                  <td>パワ腹すかし子</td>
+                </tr>
+                <tr>
+                  <td>借金支払いに関する相談</td>
+                  <td>080-xxxx-xxxx</td>
+                  <td>一文無し花子</td>
+                </tr>
+                <tr>
+                  <td>どうしようもない相談</td>
+                  <td>070-xxxx-xxxx</td>
+                  <td>とにかく明るい森山</td>
+                </tr>
+              </tbody> 
+            </table>
+          </div>
+
+          <div class="panel panel-success">
+            <div class="panel-heading">
+              <h3 class="panel-title">営業時間</h3>    
+            </div>
+            <div class="panel-body">
+              平日23時〜30時（土日・祝日は対応しておりません）
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <hr>
+
+      <div class="row">
+        <div class="icon col-sm-2 hidden-xs">
+          <span class="glyphicon glyphicon-home"></span>
+        </div>
+
+        <div class="col-sm-10">
+          <h2>カウンセラー訪問による相談</h2>
+          <p>カウンセラーが直接ご家庭まで訪問いたしますので、必要事項を記入の上、送信ボタンを押してください。</p>
+          <!-- TODO フォームを自分で作ってみる -->
+          <div style="height: 200px">
+          </div>
+        </div>
+      </div>
+
+      <hr>
+
+      <!-- TODO 料金表を作ってみる-->
+      <div class="row">
+        <div class="icon col-sm-2 hidden-xs">
+          <span class="glyphicon glyphicon-yen"></span>
+        </div>
+
+        <div class="col-sm-10">
+          <h2>料金表</h2>
+          <p>お電話による相談とカウンセラー訪問による相談の料金表はこちらになります。</p>
+          <div style="height: 800px">
+          <!-- TODO 相談に関する料金表を作ってみましょう。-->
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+    <footer>
+      <div class="copyright">© 2017 とってもあやしい会社 Inc.</div>
+    </footer>
+    
+  </body>
+</html>

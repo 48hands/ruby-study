@@ -40,7 +40,11 @@ $ git push -u origin master
 
 ### 2-2. Gemfileの設定
 
-Bootstrapを使うためのライブラリを追加します。  
+**Bootstrap**を使うためのライブラリを追加します。  
+今回からCSSの拡張である`Sass(Syntactically Awesome Style Sheets)`を使っていまます。
+
+Sassには、`SASS`と`SCSS`といった記述方法があるのですが、本勉強会ではSassの機能をCSSっぽく記述するために`SCSS`記法を使って記述していきす。
+
 ついでに前のレッスンで利用したMariaDBを利用するためのライブラリや`rails c`をpryで起動するようにするためのライブラリも追加しておきましょう。
 
 **Gemfile**
@@ -53,7 +57,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem 'rails', '~> 5.0.3'
+gem 'rails', '~> 5.0.5'
 gem 'sqlite3'
 gem 'puma', '~> 3.0'
 gem 'sass-rails', '~> 5.0'
@@ -85,10 +89,6 @@ end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 ```
-
-今回からCSSの拡張である`Sass(Syntactically Awesome Style Sheets`を使っていまます。
-
-Sassには、`SASS`と`SCSS`といった記述方法があるのですが、本勉強会ではSassの機能をCSSっぽく記述するために`SCSS`記法を使って記述していきす。
 
 `Gemfile`の設定が完了したら、`bundle install`しておきましょう。
 
@@ -132,15 +132,15 @@ production:
 
 ### 3-1. カスタムSCSSの設定
 
-Railsアプリでは、`rails g controller`コマンドでコントローラを作成する度にコントローラごとに分けられたSCSSファイルが自動的に生成されるのですが、これらのファイルを正しい順序で読み込みさせるのが面倒くさいです。  
+Railsアプリでは、`rails g controller`コマンドでコントローラを作成する度にコントローラごとに分けられた`SCSS`ファイルが自動的に生成されるのですが、これらのファイルを正しい順序で読み込みさせるのが面倒くさいです。  
 
-本勉強会では、すべてのSCSSファイルを1つにまとめてしまうために、カスタムSCSSファイルを作成して進めていきます。
+本勉強会では、すべての`SCSS`ファイルを1つにまとめてしまうために、カスタム`SCSS`ファイルを作成して進めていきます。
 
 ```bash
 $ touch app/assets/stylesheets/custom.scss
 ```
 
-以下のように編集してください。  
+カスタム`SCSS`ファイルを以下のように編集してください。  
 スタイルの部分ですのでここもコピペしちゃいましょう。
 
 **app/assets/stylesheets/custom.scss**
@@ -153,7 +153,6 @@ $ touch app/assets/stylesheets/custom.scss
 
 body {
   padding-top: 60px;
-  font-family: monospace,sans-serif;
 }
 
 section {
@@ -206,6 +205,7 @@ p {
   background-color: #65baad;
   border-color: #3e6962;
 }
+
 .navbar-inverse .navbar-nav {
   li {
     a {
@@ -216,6 +216,19 @@ p {
     }
     a:focus {
       color: #fff;
+    }
+  }
+  .open{
+    a:focus {
+        background-color: #65baad;
+        border-color: #3e6962;
+    }
+  }
+  .dropdown{
+    li {
+        a {
+            color: #000;
+        }
     }
   }
 }
@@ -251,10 +264,15 @@ input, textarea, select, .uneditable-input {
 
 ### 3-2. JavaScriptの設定
 
+JavaScriptの共通的な設定もここでしておきましょう。  
+`app/assets/javascripts/application.js`を以下のように編集してください。
+
 **app/assets/javascripts/application.js**
 
-```
-//= require rails-ujs
+```js
+//
+//= require jquery
+//= require jquery_ujs
 //= require turbolinks
 //= require bootstrap-sprockets
 //= require_tree .
@@ -263,7 +281,10 @@ input, textarea, select, .uneditable-input {
 ### 3-3. HTMLレイアウト
 
 アプリで使用するビューの共通レイアウトを設定しておきましょう。
-`app/views/layouts/application.html.erb`を以下のように編集してください。コピペしましょう！
+`app/views/layouts/application.html.erb`を以下のように編集してください。  
+コピペしましょう！
+
+**app/views/layouts/application.html.erb**
 
 ```erb
 <!DOCTYPE html>
@@ -323,7 +344,8 @@ $ git push -u origin master
 トップページを作成していきましょう。  
 まずはコントローラを作ります。
 
-ここでは、`static_pages`という名前のコントローラを作って`home`アクションも同時に定義しましょう。
+ここでは、`static_pages`という名前のコントローラを作って`home`アクションも同時に定義しましょう。  
+以下の通り、`rails g controller`コマンドを実行してください。
 
 ```
 $ rails g controller static_pages home
@@ -536,7 +558,7 @@ ActiveRecord::RecordNotUnique: Mysql2::Error: Duplicate entry 'user@example.com'
 ```
 
 重複エラーが発生しているのが分かると思います。  
-ユニークインデックスが有効である証拠です。
+ユニークインデックス（`unique: true`）が有効である証拠です。
 
 補足になりますが、`rails c`コマンドのオプションで`--sandbox`を指定しています。  
 これは、データを変更することなくコードをテストしたい時などに使います。  
@@ -656,7 +678,7 @@ end
 新規登録用のビューを作成します。  
 ビューは、フォームで作成していきます。
 
-ビューは新規に作成してください。
+ビューファイル`app/views/users/new.html.erb`は新規に作成してください。
 
 ```
 $ touch app/views/users/new.html.erb
@@ -691,8 +713,8 @@ $ touch app/views/users/new.html.erb
 </div>
 ```
 
-フォームビルダを使った`f.password_field`の部分が新しくでてきたコードですね。  
-これによって、パスワードを入力した際には文字が●●●●●●●●のような伏せ字で表示されます。
+フォームビルダを使った`f.password_field`の部分が新しい部分のコードですね。  
+`f.password_field`によって、パスワードを入力した際には文字が●●●●●●●●のような伏せ字で表示されます。
 
 ここまでできたら、いったんRailsサーバを起動して確認しましょう。
 
@@ -707,7 +729,7 @@ $ rails s -p $PORT -b $IP
 ### 6-4. ルーティングの追加
 
 ユーザの新規登録画面へのアクセスは、`/users/new`を指定しています。  
-ただ、一般的にユーザの新規登録画面へのアクセスは、`/signup`を指定するのが自然かと筆者は考えます。
+ただし、一般的にはユーザの新規登録画面へのアクセスは、`/signup`を指定するのがURLとして自然かと筆者は考えます。
 
 ルーティングを追加して、`/users/new`と`/signup`のどちらを指定しても新規登録画面が表示されるようにしてみましょう。
 
@@ -749,12 +771,15 @@ edit_user GET    /users/:id/edit(.:format) users#edit
 
 モデルに対しては、以下を実装します。
 
-* パスワードの暗号化(has_secure_passwordを有効にする)
+* パスワードの暗号化(`has_secure_password`を有効にする)
 * バリデーションチェック
 
+意味不明かと思いますが..  
 ひとつずつクリアしていきましょう。
 
-#### 6-5-1. パスワードの暗号化(has_secure_passwordを有効にする)
+#### 6-5-1. パスワードの暗号化(`has_secure_password`を有効にする)
+
+一般的にパスワードは、暗号化してデータベースに保存します。
 
 パスワードを暗号化するために、Rails標準で用意されている`has_secure_password`メソッドを使っていきます。
 
@@ -796,7 +821,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem 'rails', '~> 5.0.3'
+gem 'rails', '~> 5.0.5'
 gem 'sqlite3'
 gem 'puma', '~> 3.0'
 gem 'sass-rails', '~> 5.0'
@@ -836,7 +861,7 @@ Railsサーバが起動している場合には、一度停止してからコマ
 $ bundle install
 ```
 
-インストールできたら、`app/models/user.rb`に`has_secure_password`メソッドを追加してください。1行追加するだけです。
+インストールできたら、`app/models/user.rb`に`has_secure_password`メソッドを追加してください。たったの1行追加するだけです。
 
 **app/models/user.rb**
 
@@ -927,7 +952,7 @@ $ rails c --sandbox
 **app/models/user.rb**
 
 ```ruby
-class User < ActiveRecord
+class User < ApplicationRecord
   before_save { self.email = self.email.downcase }
   validates :name, presence: true, length: { maximum: 50 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
@@ -1028,7 +1053,8 @@ end
 ```
 
 `render`メソッドを使って部分テンプレート`app/views/shared/_error_messages.html.erb`を描画しています。  
-`f.object`の`object`には、`@user`が入っています。これを部分テンプレート側で`object`という変数名で利用できりょうに`render`メソッドの引数として渡しています。
+`f.object`の`object`には、`@user`が入ります。  
+これを部分テンプレート側で`object`という変数名で利用できるように`render`メソッドの引数として渡しています。
 
 `app/views/shared/_error_messages.html.erb`を作成していきましょう。
 
@@ -1081,6 +1107,8 @@ $ rails c --sandbox
 ![img](img/validation_error.png)
 
 ### 6-8. ユーザ詳細画面の作成
+
+次に進みます。ユーザ詳細画面を実装していきます。
 
 ユーザ詳細画面を作る前に、ルーティングを確認しましょう。
 
@@ -1146,6 +1174,10 @@ end
 
 つぎに、ビューファイル`app/views/users/show.html.erb`を作成しましょう。
 
+```
+$ touch app/views/users/show.html.erb
+```
+
 **app/views/users/show.html.erb**
 
 ```erb
@@ -1157,7 +1189,7 @@ end
 
 `gravatar_for`ヘルパーメソッドを使ってGravatarの画像を利用できるようにします。  
 
-**ヘルパーメソッド**とは、ビューで扱えるメソッドです。  
+**ヘルパーメソッドとは、ビューで扱えるメソッドです。**  
 ビューで利用する共通部品の役割を果たします。  
 
 ヘルパーメソッドは、`app/helpers/users_helper.rb`に定義します。  
@@ -1255,7 +1287,7 @@ end
 </html>
 ```
 
-`flash`変数はハッシュオブジェクトであるため、eachメソッドのブロックに渡す変数でキー`type`とバリュー`message`を渡しています。
+`flash`変数はハッシュオブジェクトであるため、`each`メソッドのブロックに渡す変数でキー`type`とバリュー`message`を渡しています。
 
 新規登録画面で登録後、ユーザ詳細画面でフラッシュメッセージが以下のように表示できていればOKです。
 

@@ -8,7 +8,7 @@
 仮想環境を提供するソフトウェア(VirtualBoxやVMWareなど)のフロントエンドを担当するソフトウェア
 * Itamae  
 ソフトウェアの構成管理を担当するソフトウェア
-* Serverspec
+* Serverspec  
 サーバの状態をテストするソフトウェア
 
 お伝え忘れましたが、**今回はCloud9を利用しません。**  
@@ -428,7 +428,7 @@ test-box
 
 - vm-name: aradin
   box: centos/7
-  name: aradin
+  hostname: aradin
   ip: 192.168.10.12
   memory: 700
   cpus: 1
@@ -771,7 +771,7 @@ end
 
 # action :installは必須かつデフォルトなので、書かなくてもいい。
 # versionを指定しない場合は、こういった書き方もできる。
-package "mariadb"
+package "httpd"
 ```
 
 ### 2-5. service
@@ -793,10 +793,6 @@ serviceリソースは、サービスの起動や終了を定義します。
 例になります。`cookbooks/recipe.rb`に追記して実行してみてください。
 
 ```ruby
-service "mariadb" do
-  action [:stop,:disable]
-end
-
 service "httpd" do
   action [:start,:enable]
 end
